@@ -7,24 +7,30 @@ const YearlyContributionInput = (props) => {
     if (event.target.value.trim().length > 0) {
       setIsYearlySavingsValid(true);
     }
+    if (enteredYearlyContribution.trim().length === 0) {
+      setIsYearlySavingsValid(false);
+      return;
+    }
     setYearlyContribution(event.target.value);
+    props.onChangeYearlyContribution(enteredYearlyContribution);
   };
-  return;
-  <p>
-    <label
-      className={styles[`${isYearlySavingsValid ? "" : "invalid"}`]}
-      htmlFor="yearly-contribution"
-    >
-      Yearly Savings ($)
-    </label>
-    <input
-      value={enteredYearlyContribution}
-      type="number"
-      id="yearly-contribution"
-      onChange={yearlyContributionChangeHandler}
-      className={styles[`${isYearlySavingsValid ? "" : "invalid"}`]}
-    />
-  </p>;
+  return (
+    <p>
+      <label
+        className={styles[`${isYearlySavingsValid ? "" : "invalid"}`]}
+        htmlFor="yearly-contribution"
+      >
+        Yearly Savings ($)
+      </label>
+      <input
+        // value={enteredYearlyContribution}
+        type="number"
+        id="yearly-contribution"
+        onChange={yearlyContributionChangeHandler}
+        className={styles[`${isYearlySavingsValid ? "" : "invalid"}`]}
+      />
+    </p>
+  );
 };
 
 export default YearlyContributionInput;
