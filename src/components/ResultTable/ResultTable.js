@@ -2,6 +2,8 @@ import "./ResultTable.css";
 import YearlyRecord from "./YearlyRecord.js";
 
 const ResultTable = (props) => {
+  console.log("from table");
+  console.log(props.investmentData);
   return (
     <div>
       <table className="result">
@@ -14,10 +16,16 @@ const ResultTable = (props) => {
             <th>Invested Capital</th>
           </tr>
         </thead>
-
-          <YearlyRecord />
-        
-
+        {props.investmentData.map((item) => (
+          <YearlyRecord 
+            key = {item.id}
+            year = {item.year}
+            totalSavings = {item.savingsEndOfYear}
+            interest={item.yearlyInterest}
+            totalInterest={item.totalInterest}
+            investedCapital={item.investedCapital}
+          />
+        ))}
       </table>
     </div>
   );

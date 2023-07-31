@@ -1,12 +1,19 @@
 const YearlyRecord = (props) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+   
   return (
     <tbody>
       <tr>
-        <td>YEAR NUMBER</td>
-        <td>TOTAL SAVINGS END OF YEAR</td>
-        <td>INTEREST GAINED IN YEAR</td>
-        <td>TOTAL INTEREST GAINED</td>
-        <td>TOTAL INVESTED CAPITAL</td>
+        <td>{props.year}</td>
+        <td>{formatter.format(props.totalSavings)}</td>
+        <td>{formatter.format(props.interest)}</td>
+        <td>{formatter.format(props.totalInterest)}</td>
+        <td>{formatter.format(props.investedCapital)}</td>
       </tr>
     </tbody>
   );
