@@ -45,7 +45,6 @@ const InvenstmentForm = (props) => {
     setIsExpectedInterestValid(true);
   };
   const currentSavingsChangeHandler = (data) => {
-    console.log(data)
     setCurrentSavings(data);
   }
   const yearlyContributionChangeHandler = (data) => {
