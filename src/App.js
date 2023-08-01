@@ -1,14 +1,16 @@
 import Header from "./components/Header/Header";
 import InvestmentForm from "./components/InvestmentForm/InvestmentForm";
 import ResultTable from "./components/ResultTable/ResultTable";
-
+import React, { useState } from "react";
 function App() {
-  const calculateHandler = (userInput) => {
-    // Should be triggered when form is submitted
-    // You might not directly want to bind it to the submit event on the form though...
+  const [userInput, setUserInput] = useState();
+  const calculateHandler = (data) => {
+    setUserInput(data);
+  };
 
-    const yearlyData = []; // per-year results
+  const yearlyData = [];
 
+  if (userInput) {
     let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
     const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
     const expectedReturn = +userInput["expected-return"] / 100;
@@ -19,22 +21,20 @@ function App() {
       const yearlyInterest = currentSavings * expectedReturn;
       currentSavings += yearlyInterest + yearlyContribution;
       yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
       });
     }
-
-    // do something with yearlyData ...
-  };
+  }
 
   return (
     <div>
       <Header />
-      <InvestmentForm></InvestmentForm>
-      <ResultTable></ResultTable>
+      <InvestmentForm calculateUserInput={calculateHandler}></InvestmentForm>
+      {!userInput && <p style={{textAlign: 'center'}}>No Data Found</p>}
+      {userInput && <ResultTable data={yearlyData} initialInvestment={userInput["current-savings"]}></ResultTable>}
     </div>
   );
 }
