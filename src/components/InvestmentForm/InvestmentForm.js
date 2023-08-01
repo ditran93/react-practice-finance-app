@@ -1,81 +1,57 @@
-import styles from "./InvestmentForm.module.css";
-import React, { useState } from "react";
-import Button from "../UI/Button/Button.js";
-import CurrentSavingsInput from "../UserInput/CurrentSavingsInput";
-import ExpectedInterestInput from "../UserInput/ExpectedInterestInput";
-import InvestmentDurationInput from "../UserInput/InvestmentDurationInput";
-import YearlyContributionInput from "../UserInput/YearlyContributionInput";
+import React, {useState} from "react";
 
-const InvenstmentForm = (props) => {
-  const [enteredCurrentSavings, setCurrentSavings] = useState();
-  const [enteredExpectedInterest, setExpectedInterest] = useState();
-  const [enteredInvestmentDuration, setInvestmentDuration] = useState();
-  const [enteredYearlyContribution, setYearlyContribution] = useState();
-  const [isCurrentSavingsValid, setIsCurrentSavingsValid] = useState(true);
-  const [isExpectedInterestValid, setIsExpectedInterestValid] = useState(true);
-  const [isInvestmentDurationValid, setIsInvestmentDurationValid] = useState(true);
-  const [isYearlyContributionValid, setIsYearlySavingsValid] = useState(true);
+const initialData = [{
+  'current-savings': 10000,
+  'yearly-contribution': 1200,
+  'expected-return': 5,
+  duration: 5
+}]
 
+const InvestmentForm = (props) => {
+  const [userInput, setUserInput] = useState(initialData);
   const submitHandler = (event) => {
     event.preventDefault();
-    
-    const investmentData = {
-      currentSavings: enteredCurrentSavings,
-      yearlyContribution: enteredYearlyContribution,
-      expectedReturn: enteredExpectedInterest,
-      duration: enteredInvestmentDuration,
-    };
-    console.log(investmentData);
-    props.onSaveInvestmentData(investmentData);
-    // setCurrentSavings("");
-    // setYearlyContribution("");
-    // setExpectedInterest("");
-    // setInvestmentDuration("");
-  };
+  }
+  const resetHandler = () => {
 
-
-  const resetButtonHandler = () => {
-    setCurrentSavings("");
-    setYearlyContribution("");
-    setExpectedInterest("");
-    setInvestmentDuration("");
-    setIsCurrentSavingsValid(true);
-    setIsYearlySavingsValid(true);
-    setIsInvestmentDurationValid(true);
-    setIsExpectedInterestValid(true);
-  };
-  const currentSavingsChangeHandler = (data) => {
-    setCurrentSavings(data);
   }
-  const yearlyContributionChangeHandler = (data) => {
-    setYearlyContribution(data);
-  }
-  const ExpectedInterestChangeHandler = (data) => {
-    setExpectedInterest(data);
-  }
-  const InvestmentDurationChangeHandler = (data) => {
-    setInvestmentDuration(data);
+  const inputChangeHandler = (userInput, value) => {
+    set
   }
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
-      <div className={styles["input-group"]}>
-        <CurrentSavingsInput onChangeCurrentSavings={currentSavingsChangeHandler}></CurrentSavingsInput>
-        <YearlyContributionInput onChangeYearlyContribution={yearlyContributionChangeHandler}></YearlyContributionInput>
+    <form className="form" onSubmit={submitHandler}>
+      <div className="input-group">
+        <p>
+          <label htmlFor="current-savings">Current Savings ($)</label>
+          <input onChange={(event) => inputChangeHandler('current-savings', event.target.value)} type="number" id="current-savings" />
+        </p>
+        <p>
+          <label htmlFor="yearly-contribution">Yearly Savings ($)</label>
+          <input onChange={(event) => inputChangeHandler('yearly-contribution', event.target.value)} type="number" id="yearly-contribution" />
+        </p>
       </div>
-      <div className={styles["input-group"]}>
-        <ExpectedInterestInput onChangeExpectedInterest={ExpectedInterestChangeHandler}></ExpectedInterestInput>
-        <InvestmentDurationInput onChangeInvestmentDuration={InvestmentDurationChangeHandler}></InvestmentDurationInput>
+      <div className="input-group">
+        <p>
+          <label htmlFor="expected-return">
+            Expected Interest (%, per year)
+          </label>
+          <input onChange={(event) => inputChangeHandler('expected-return', event.target.value)} type="number" id="expected-return" />
+        </p>
+        <p>
+          <label htmlFor="duration">Investment Duration (years)</label>
+          <input onChange={(event) => inputChangeHandler('duration', event.target.value)} type="number" id="duration" />
+        </p>
       </div>
-      <p className={styles.actions}>
-        <Button onClick={resetButtonHandler} type="reset" className="buttonAlt">
+      <p className="actions">
+        <button onClick={resetHandler} type="reset" className="buttonAlt">
           Reset
-        </Button>
-        <Button type="submit" className="button">
+        </button>
+        <button type="submit" className="button">
           Calculate
-        </Button>
+        </button>
       </p>
     </form>
   );
 };
 
-export default InvenstmentForm;
+export default InvestmentForm;
